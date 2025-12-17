@@ -8,7 +8,7 @@ This repository contains my solutions, exercises, and projects developed during 
 | Part | Topic | Status | Link to code |
 | :--- | :--- | :---: | :--- |
 | **0** | **Fundamentals of Web apps** | Done | [View](./part0) |
-| **1** | Introduction to React |  Pending | - |
+| **1** | **Introduction to React**  | Done | [View](./part1) |
 | **2** | Communicating with server |  Pending | - |
 | **3** | Programming a server with NodeJS and Express |  Pending | - |
 | **4** | Testing Express servers, user administration |  Pending | - |
