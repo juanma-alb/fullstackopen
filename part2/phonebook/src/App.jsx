@@ -1,17 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import FindPerson from './components/FindPerson'
 import AddNewPersonForm from './components/AddNewPersonForm'
 import ShowPersons from './components/ShowPersons'
-
+import axios from "axios"
 
 
 const App = () => {
-   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ]) 
+
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newPhoneNumber, setNewPhoneNumber] = useState('')
   const [personsToFind,setPersonsToFind ] = useState("")
@@ -20,7 +16,17 @@ const App = () => {
   ? persons
   : persons.filter(person => person.name.toLowerCase().includes(personsToFind.toLowerCase())) 
   
-    const handlePersonsToFind = (event) =>{
+  useEffect ( ()=>{
+    axios
+    .get ("http://localhost:3001/persons")
+    .then (response => {
+      setPersons(response.data)
+    })
+  }, [])  
+
+  console.log (`render ${persons.length} persons`)
+
+  const handlePersonsToFind = (event) =>{
   setPersonsToFind(event.target.value)
   console.log(event.target.value)}
 
