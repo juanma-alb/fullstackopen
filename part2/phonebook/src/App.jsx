@@ -2,8 +2,7 @@ import { useState, useEffect} from 'react'
 import FindPerson from './components/FindPerson'
 import AddNewPersonForm from './components/AddNewPersonForm'
 import ShowPersons from './components/ShowPersons'
-import axios from "axios"
-
+import personsService from "./services/persons"
 
 const App = () => {
 
@@ -17,14 +16,14 @@ const App = () => {
   : persons.filter(person => person.name.toLowerCase().includes(personsToFind.toLowerCase())) 
   
   useEffect ( ()=>{
-    axios
-    .get ("http://localhost:3001/persons")
+    personsService
+    .getPersons ()
     .then (response => {
-      setPersons(response.data)
+      setPersons(response)
     })
   }, [])  
 
-  console.log (`render ${persons.length} persons`)
+
 
   const handlePersonsToFind = (event) =>{
   setPersonsToFind(event.target.value)
@@ -41,21 +40,56 @@ const App = () => {
 
   const addPerson = (event) =>{
   event.preventDefault()
-    const nameObject = {
-      id: persons.length + 1,
+    const personObject = {
       name: newName,
       number: newPhoneNumber
     }
-    const nameExist = persons.find (person => person.name === newName) 
-    const phoneExist = persons.find (person => person.number === newPhoneNumber) 
+    const personExists = persons.find (person => person.name === newName) 
+    //const phoneExist = persons.find (person => person.number === newPhoneNumber) 
 
-    if (nameExist) 
-    alert(`${newName} already exists`)
-    else if (phoneExist) {alert (`the phone number ${newPhoneNumber} already exists`)}
-    else {setPersons (persons.concat(nameObject)) }
-    setNewName ("")
-    setNewPhoneNumber ("")
-  } 
+    if (personExists) 
+     {
+      if (window.confirm(`are you sure you want to
+         replace the old number with the new one`)){
+          personsService
+          .updatePerson (personExists.id, personObject)
+          .then (response=> {
+            setPersons (persons.map (person => person.id === personExists.id ? response : person ))
+            setNewName ("")
+            setNewPhoneNumber ("")
+          })
+          .catch(error =>{
+            console.error (error)
+            alert(`an error occured. 
+        reason:
+          "${error.message}"`)
+          })
+         }
+    }
+    else {
+      personsService
+      .createPerson(personObject)
+      .then(response => {
+      setPersons (persons.concat(response))
+      setNewName ("")
+      setNewPhoneNumber ("")
+      })
+      .catch (error => {
+        console.error (error)
+        alert(`an error occured. 
+        reason:
+          "${error.message}"`)
+      })
+       }}
+       
+const deletePerson = (id) =>{
+  if (window.confirm ("are you sure you want to delete this person?"))
+personsService
+.deletePerson (id)
+.then (() =>{
+  setPersons (persons.filter (person => person.id !== id))
+})
+}
 
 return (
 <div>
@@ -76,7 +110,7 @@ handleNewPhoneNumber={handleNewPhoneNumber} />
 
 <h2>Numbers</h2>
 
-<ShowPersons personsToShow = {personsToShow}/>
+<ShowPersons personsToShow = {personsToShow} deletePerson={deletePerson}/>
 
 </div>
   )
