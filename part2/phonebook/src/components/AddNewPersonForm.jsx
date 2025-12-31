@@ -4,17 +4,17 @@ const AddNewPersonForm = ({addPerson, newName, handleNewName, newPhoneNumber, ha
 
     <form onSubmit={addPerson}>
         <div>
-          name: <input
+          <strong>name:</strong> <input
           value = {newName} 
           onChange={handleNewName}
-          placeholder='write your note here'
+          placeholder='write the name here'
           />
         </div>
         <div>
-          phone: <input
+          <strong>phone</strong>: <input
           value = {newPhoneNumber} 
           onChange={handleNewPhoneNumber}
-          placeholder='write your phone here'
+          placeholder='write the phone here'
           />
         </div>
         <div>

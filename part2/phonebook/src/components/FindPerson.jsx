@@ -1,7 +1,7 @@
 const FindPerson = ({personsToFind, handlePersonsToFind}) =>{
 
   return(   
-  <div>
+  <div> <strong>filter</strong> shown with: 
    <input type='text' value= {personsToFind} onChange={handlePersonsToFind}/>
       </div>)
 }

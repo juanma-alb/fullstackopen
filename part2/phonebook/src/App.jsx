@@ -3,6 +3,8 @@ import FindPerson from './components/FindPerson'
 import AddNewPersonForm from './components/AddNewPersonForm'
 import ShowPersons from './components/ShowPersons'
 import personsService from "./services/persons"
+import Notification from './components/Notification'
+import './index.css'
 
 const App = () => {
 
@@ -10,6 +12,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newPhoneNumber, setNewPhoneNumber] = useState('')
   const [personsToFind,setPersonsToFind ] = useState("")
+  const [successMessage, setSuccessMessage] = useState("") 
+  const [errorMessage, setErrorMessage] = useState("")
   
   const personsToShow = personsToFind === ("")
   ? persons
@@ -49,20 +53,23 @@ const App = () => {
 
     if (personExists) 
      {
-      if (window.confirm(`are you sure you want to
-         replace the old number with the new one`)){
+      if (window.confirm(`are you sure you want to replace the old number of ${newName} with the new one`)){
           personsService
           .updatePerson (personExists.id, personObject)
           .then (response=> {
             setPersons (persons.map (person => person.id === personExists.id ? response : person ))
             setNewName ("")
             setNewPhoneNumber ("")
+            setSuccessMessage(`${newName} replaced successfully`)
+            setTimeout(() => setSuccessMessage(null), 3500)
           })
           .catch(error =>{
             console.error (error)
-            alert(`an error occured. 
-        reason:
-          "${error.message}"`)
+            setErrorMessage(`Information of ${newName} has already been removed from server`)
+            setTimeout(()=> setErrorMessage(""), 3500)
+            setPersons(persons.filter(person => person.id !== personExists.id))
+
+
           })
          }
     }
@@ -73,40 +80,59 @@ const App = () => {
       setPersons (persons.concat(response))
       setNewName ("")
       setNewPhoneNumber ("")
+      setSuccessMessage(`${newName} created successfully`)
+      setTimeout(()=> setSuccessMessage(""), 3500)
+
       })
-      .catch (error => {
-        console.error (error)
-        alert(`an error occured. 
-        reason:
-          "${error.message}"`)
-      })
+      .catch(error =>{
+            console.error (error)
+            setErrorMessage (`error creating ${newName}, reason: ${error.message}`)
+            setTimeout(()=> setErrorMessage(""), 3500)
+          })
        }}
        
 const deletePerson = (id) =>{
-  if (window.confirm ("are you sure you want to delete this person?"))
+  const personDeleted = persons.find (person => person.id === id)
+  if (window.confirm (`are you sure you want to delete ${personDeleted.name} from phonebook?`)){
+  
 personsService
 .deletePerson (id)
 .then (() =>{
   setPersons (persons.filter (person => person.id !== id))
+  setSuccessMessage(`${personDeleted.name} deleted successfully`)
+  setTimeout(()=> setSuccessMessage(""), 3500)
 })
-}
+  .catch(error =>{
+            console.error (error)
+            setErrorMessage (`error deleting ${personDeleted.name}, reason ${error.message}`)
+            setTimeout(()=> setErrorMessage(""), 3500)
+            setPersons(persons.filter(person => person.id !== id))
 
+          })
+
+}
+}
 return (
 <div>
       <h2>Phonebook</h2>
+<Notification message={successMessage} type={"success"}/>
+<Notification message={errorMessage} type={"error"}/>
 
 <FindPerson 
 personsToFind={personsToFind} 
 handlePersonsToFind = {handlePersonsToFind}/>
 
 <br/>
-
+<h3>Add a new person</h3>
 <AddNewPersonForm 
 addPerson={addPerson} 
 newName={newName} 
 handleNewName={handleNewName} 
 newPhoneNumber={newPhoneNumber} 
 handleNewPhoneNumber={handleNewPhoneNumber} />
+<br/>
+
+
 
 <h2>Numbers</h2>
 

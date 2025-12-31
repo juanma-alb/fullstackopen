@@ -2,7 +2,7 @@ const ShowPersons = ({personsToShow, deletePerson})=> {
   return (<div>
  {
         personsToShow.map(person => (
-          <p key={person.id}> <strong>{person.name}</strong>
+          <p className= "person"key={person.id}> <strong>{person.name}</strong>
             <br/> <small>{person.number} </small> <button onClick={() =>deletePerson(person.id)}> delete</button>
           </p>
         ))
@@ -10,5 +10,4 @@ const ShowPersons = ({personsToShow, deletePerson})=> {
 
     </div>)
 } 
-
 export default ShowPersons
