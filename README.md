@@ -9,8 +9,8 @@ This repository contains my solutions, exercises, and projects developed during 
 | :--- | :--- | :---: | :--- |
 | **0** | **Fundamentals of Web apps** | Done | [View](./part0) |
 | **1** | **Introduction to React**  | Done | [View](./part1) |
-| **2** | Communicating with server |  Pending | - |
-| **3** | Programming a server with NodeJS and Express |  Pending | - |
+| **2** | **Communicating with server** | Done | [View](./part2) |
+| **3** | Programming a server with NodeJS and Express |  **In process...** | - |
 | **4** | Testing Express servers, user administration |  Pending | - |
 | **5** | Testing React apps |  Pending | - |
 | **6** | Advanced state management |  Pending | - |
