@@ -17,7 +17,7 @@ This repository contains my solutions, exercises, and projects developed during 
 | **7** | React router, custom hooks, styling app with CSS and webpack |  Pending | - |
 | **8** | GraphQL |  Pending | - |
 | **9** | TypeScript |  Pending | - |
-| **10** | React Native |  Pending | - |
+| **12** | Containers |  Pending | - |
 | **13** | Using relational databases |  Pending | - |
 
 
