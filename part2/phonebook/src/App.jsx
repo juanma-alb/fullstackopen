@@ -27,21 +27,18 @@ const App = () => {
     })
   }, [])  
 
-
-
+//handlers
   const handlePersonsToFind = (event) =>{
   setPersonsToFind(event.target.value)
-  console.log(event.target.value)}
-
+  }  
   const handleNewName = (event) =>{
   setNewName(event.target.value)
-  console.log(event.target.value)}
-
+  }  
   const handleNewPhoneNumber = (event) =>{
   setNewPhoneNumber(event.target.value)
-  console.log(event.target.value)}
+  }  
 
-
+//add/replace person
   const addPerson = (event) =>{
   event.preventDefault()
     const personObject = {
@@ -51,6 +48,7 @@ const App = () => {
     const personExists = persons.find (person => person.name === newName) 
     //const phoneExist = persons.find (person => person.number === newPhoneNumber) 
 
+    //replace 
     if (personExists) 
      {
       if (window.confirm(`are you sure you want to replace the old number of ${newName} with the new one`)){
@@ -64,15 +62,20 @@ const App = () => {
             setTimeout(() => setSuccessMessage(null), 3500)
           })
           .catch(error =>{
-            console.error (error)
+            if (error.response && error.response.data.error ){
+            setErrorMessage (`error updating ${newName}, reason: ${error.response.data.error}`)
+            }
+            else
+            {console.error (error)
             setErrorMessage(`Information of ${newName} has already been removed from server`)
-            setTimeout(()=> setErrorMessage(""), 3500)
-            setPersons(persons.filter(person => person.id !== personExists.id))
+            setTimeout(()=> setErrorMessage(""), 7000)
+            setPersons(persons.filter(person => person.id !== personExists.id))}
 
 
           })
          }
     }
+    //create 
     else {
       personsService
       .createPerson(personObject)
@@ -86,11 +89,12 @@ const App = () => {
       })
       .catch(error =>{
             console.error (error)
-            setErrorMessage (`error creating ${newName}, reason: ${error.message}`)
-            setTimeout(()=> setErrorMessage(""), 3500)
+            setErrorMessage (`error creating ${newName}, reason: ${error.response.data.error}`)
+            setTimeout(()=> setErrorMessage(""), 7000)
           })
        }}
-       
+
+//delete       
 const deletePerson = (id) =>{
   const personDeleted = persons.find (person => person.id === id)
   if (window.confirm (`are you sure you want to delete ${personDeleted.name} from phonebook?`)){
@@ -105,7 +109,7 @@ personsService
   .catch(error =>{
             console.error (error)
             setErrorMessage (`error deleting ${personDeleted.name}, reason ${error.message}`)
-            setTimeout(()=> setErrorMessage(""), 3500)
+            setTimeout(()=> setErrorMessage(""), 7000)
             setPersons(persons.filter(person => person.id !== id))
 
           })
