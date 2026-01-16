@@ -1,24 +1,24 @@
-# Full Stack Open 2025 - University of Helsinki 
+# Full Stack Open 2025/2026 - University of Helsinki 
 
 This repository contains my solutions, exercises, and projects developed during the **Full Stack Open 2025** course at the University of Helsinki.
 
 
-## Course Progress
+## Course Progress 
 
 | Part | Topic | Status | Link to code |
 | :--- | :--- | :---: | :--- |
-| **0** | **Fundamentals of Web apps** | Done | [View](./part0) |
-| **1** | **Introduction to React**  | Done | [View](./part1) |
-| **2** | **Communicating with server** | Done | [View](./part2) |
-| **3** | Programming a server with NodeJS and Express |  **In process...** | - |
-| **4** | Testing Express servers, user administration |  Pending | - |
-| **5** | Testing React apps |  Pending | - |
-| **6** | Advanced state management |  Pending | - |
-| **7** | React router, custom hooks, styling app with CSS and webpack |  Pending | - |
-| **8** | GraphQL |  Pending | - |
-| **9** | TypeScript |  Pending | - |
-| **12** | Containers |  Pending | - |
-| **13** | Using relational databases |  Pending | - |
+| **0** | **Fundamentals of Web apps** | ![](https://img.shields.io/badge/-Done-success) | [View](./part0) |
+| **1** | **Introduction to React**  | ![](https://img.shields.io/badge/-Done-success) | [View](./part1) |
+| **2** | **Communicating with server** | ![](https://img.shields.io/badge/-Done-success) | [View](./part2) |
+| **3** | Programming a server with NodeJS and Express | ![](https://img.shields.io/badge/-Done-success) | [View](https://github.com/juanma-alb/phonebook-backend) |
+| **4** | Testing Express servers, user administration | ![](https://img.shields.io/badge/-In_Process-yellow) | [View](https://github.com/juanma-alb/blog-list-backend) |
+| **5** | Testing React apps |  ![](https://img.shields.io/badge/-Pending-grey) | - |
+| **6** | Advanced state management |  ![](https://img.shields.io/badge/-Pending-grey) | - |
+| **7** | React router, custom hooks, styling app with CSS and webpack |  ![](https://img.shields.io/badge/-Pending-grey) | - |
+| **8** | GraphQL |  ![](https://img.shields.io/badge/-Pending-grey) | - |
+| **9** | TypeScript |  ![](https://img.shields.io/badge/-Pending-grey) | - |
+| **12** | Containers |  ![](https://img.shields.io/badge/-Pending-grey) | - |
+| **13** | Using relational databases |  ![](https://img.shields.io/badge/-Pending-grey) | - |
 
 
 ## Objective and certification
